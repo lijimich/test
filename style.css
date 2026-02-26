@@ -1,0 +1,197 @@
+:root {
+    --bg-gradient: linear-gradient(135deg, #0f172a, #1e293b);
+    --calc-bg: rgba(255, 255, 255, 0.05);
+    --calc-border: rgba(255, 255, 255, 0.1);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --btn-bg: rgba(255, 255, 255, 0.03);
+    --btn-hover: rgba(255, 255, 255, 0.1);
+    --operator-color: #22c55e;
+    --equals-bg: linear-gradient(135deg, #22c55e, #16a34a);
+    --equals-hover: linear-gradient(135deg, #4ade80, #22c55e);
+    --highlight-color: #ef4444;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+}
+
+body {
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-primary);
+    overflow: hidden;
+}
+
+.calculator-wrapper {
+    position: relative;
+    padding: 20px;
+    animation: floatIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+}
+
+@keyframes floatIn {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.calculator {
+    background: var(--calc-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--calc-border);
+    border-radius: 30px;
+    padding: 30px;
+    width: 320px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.calculator:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.display {
+    text-align: right;
+    margin-bottom: 30px;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    word-wrap: break-word;
+    word-break: break-all;
+    padding: 15px;
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.previous-operand {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    min-height: 1.5rem;
+    font-weight: 300;
+}
+
+.current-operand {
+    color: var(--text-primary);
+    font-size: 3rem;
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    transition: font-size 0.2s ease, transform 0.1s ease;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.btn {
+    border: none;
+    outline: none;
+    background: var(--btn-bg);
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    height: 60px;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, white 10%, transparent 10.01%);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    transform: scale(10, 10);
+    opacity: 0;
+    transition: transform .5s, opacity 1s;
+}
+
+.btn:active::after {
+    transform: scale(0, 0);
+    opacity: .2;
+    transition: 0s;
+}
+
+.btn:hover {
+    background: var(--btn-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.btn:active,
+.btn.keyboard-active {
+    transform: scale(0.95);
+    background: var(--btn-hover);
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+.operator {
+    color: var(--operator-color);
+    font-weight: 500;
+    font-size: 1.8rem;
+    background: rgba(34, 197, 94, 0.05);
+}
+
+.operator:hover {
+    background: rgba(34, 197, 94, 0.15);
+}
+
+.action {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.action.highlight {
+    color: var(--highlight-color);
+    background: rgba(239, 68, 68, 0.08);
+}
+
+.action.highlight:hover {
+    background: rgba(239, 68, 68, 0.15);
+}
+
+.equals {
+    background: var(--equals-bg);
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+}
+
+.equals:hover {
+    background: var(--equals-hover);
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5);
+}
+
+.span-2 {
+    grid-column: span 2;
+}
